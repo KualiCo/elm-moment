@@ -1,11 +1,16 @@
-module Moment (getCurrent, Moment, emptyMoment, format, formatString, add, subtract, from, isBefore, isAfter) where
+module Moment (getCurrent, Moment, emptyMoment, format, formatString, add, subtract, from, isBefore, isAfter, toTime, fromTime, setWeekDay) where
 
 {-|
 A Moment.js inspired library
 -}
 
 import Native.Moment
+import Task exposing (Task)
+import Time exposing (Time)
+
+
 -- hack for making sure MomentJS.js is included
+
 import Native.MomentJS
 
 
@@ -18,6 +23,7 @@ type alias Moment =
     , seconds : Int
     , milliseconds : Int
     }
+
 
 {-| A moment with everything set to 0
 -}
@@ -45,6 +51,7 @@ format : Moment -> String
 format =
     Native.Moment.format
 
+
 {-| Takes a format string and returns the moment as a formatted
 by that string
 -}
@@ -52,17 +59,20 @@ formatString : String -> Moment -> String
 formatString =
     Native.Moment.formatString
 
+
 {-| Add the second moment to the first
 -}
 add : Moment -> Moment -> Moment
 add =
     Native.Moment.add
 
+
 {-| Subtract the second moment from the first
 -}
 subtract : Moment -> Moment -> Moment
 subtract =
     Native.Moment.subtract
+
 
 {-| Returns a string in words of how long it is from the first
 moment to the second
@@ -84,3 +94,18 @@ isBefore =
 isAfter : Moment -> Moment -> Bool
 isAfter =
     Native.Moment.isAfter
+
+
+toTime : Moment -> Time
+toTime =
+    Native.Moment.toTime
+
+
+fromTime : Time -> Moment
+fromTime =
+    Native.Moment.fromTime
+
+
+setWeekDay : Moment -> Int -> Moment
+setWeekDay =
+    Native.Moment.setWeekDay

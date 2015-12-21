@@ -59,6 +59,26 @@ var MomentApi = function(Moment){
         };
     };
 
+    var fromTime = function() {
+        return function(time) {
+            return Moment(time).toObject();
+        };
+    }
+
+    var toTime = function() {
+        return function(m) {
+            var parsedMoment = Moment(m)
+            return parsedMoment.valueOf()
+        };
+    }
+
+    var setWeekDay = function() {
+        return function(m, day) {
+            var parsedMoment = Moment(m);
+            return parsedMoment.week(day).toObject();
+        };
+    }
+
     return {
         getCurrent: getCurrent,
         format: format,
@@ -67,7 +87,10 @@ var MomentApi = function(Moment){
         subtract: subtract,
         from: from,
         isBefore: isBefore,
-        isAfter: isAfter
+        isAfter: isAfter,
+        fromTime: fromTime,
+        toTime: toTime,
+        setWeekDay: setWeekDay
     };
 
 };
@@ -92,7 +115,10 @@ var make = function make(localRuntime) {
         'subtract': F2(API.subtract()),
         'from': F2(API.from()),
         'isBefore': F2(API.isBefore()),
-        'isAfter': F2(API.isAfter())
+        'isAfter': F2(API.isAfter()),
+        'fromTime': API.fromTime(),
+        'toTime': API.toTime(),
+        'setWeekDay': F2(API.setWeekDay())
     };
 };
 
